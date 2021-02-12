@@ -8,7 +8,7 @@ namespace ConsoleUI
     class Program
     {
         static void Main(string[] args)
-        {//sil yorumu
+        {
             //CarTest();
             //BrandTest();
             CarJoinTest();
@@ -27,18 +27,33 @@ namespace ConsoleUI
         {
             CarManager carManager = new CarManager(new EfCarDal());
 
-            foreach (var car in carManager.GetCarsByColorId(1))
+            var result = carManager.GetCarDetails();
+            if (result.Success == true)
+            { 
+            foreach (var car in result.Data)
             {
                 Console.WriteLine(car.DailyPrice);
+            }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
             }
         }
         private static void CarJoinTest()
         {
             CarManager carManager = new CarManager(new EfCarDal());
-
-            foreach (var car in carManager.GetCarDetails())
+            var result = carManager.GetCarDetails();
+            if (result.Success == true) 
+            {
+            foreach (var car in result.Data)
             {
                 Console.WriteLine(car.DailyPrice+" "+car.ColorName+" "+car.BrandName);
+            }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
             }
         }
     }

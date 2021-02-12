@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Entities.DTOs
 {
+    //---------------------Dto: Data transfer object----------------
     public class CarDetailDto:IDto
     {
         public int CarId { get; set; }
