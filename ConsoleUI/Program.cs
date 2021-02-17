@@ -11,18 +11,51 @@ namespace ConsoleUI
         {
             //CarTest();
             //BrandTest();
-            CarJoinTest();
+            //CarJoinTest();
+            //RentDetailsTest();
+            RentTest();
+
         }
 
         private static void BrandTest()
         {
             BrandManager brandManager = new BrandManager(new EfBrandDal());
-            foreach (var brand in brandManager.GetAll())
+            var result = brandManager.GetAll();
+            foreach (var brand in result.Data)
             {
                 Console.WriteLine(brand.Name);
             }
         }
 
+        private static void RentDetailsTest()
+        {
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            var result = rentalManager.GetRentalDetails();
+            if (result.Success == true)
+            {
+                foreach (var rent in result.Data)
+                {
+                    Console.WriteLine("CustomerName:{0} - CarName:{1} - CompanyName:{2} - RentDate:{3} - ReturnDate:{4}",
+                        rent.CustomerName, rent.CarName, rent.CustomerName, rent.RentDate, rent.ReturnDate);
+                }
+                Console.WriteLine(result.Message);
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+        }
+        private static void RentTest()
+        {
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            var result = rentalManager.GetAll(); 
+            foreach (var r in result.Data)
+            {
+                Console.WriteLine(r.CarId+ " " + r.CustomerId+" "+ r.RentDate);
+            }
+
+            
+        }
         private static void CarTest()
         {
             CarManager carManager = new CarManager(new EfCarDal());
