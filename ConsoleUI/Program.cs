@@ -12,8 +12,8 @@ namespace ConsoleUI
             //CarTest();
             //BrandTest();
             //CarJoinTest();
-            //RentDetailsTest();
-            RentTest();
+            RentDetailsTest();
+            //RentTest();
 
         }
 
@@ -36,7 +36,8 @@ namespace ConsoleUI
                 foreach (var rent in result.Data)
                 {
                     Console.WriteLine("CustomerName:{0} - CarName:{1} - CompanyName:{2} - RentDate:{3} - ReturnDate:{4}",
-                        rent.CustomerName, rent.CarName, rent.CustomerName, rent.RentDate, rent.ReturnDate);
+                        rent.CompanyName, rent.CarName, rent.CompanyName, rent.RentDate, rent.ReturnDate);
+                    Console.WriteLine("\n\n");
                 }
                 Console.WriteLine(result.Message);
             }
