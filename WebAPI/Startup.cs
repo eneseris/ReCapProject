@@ -56,6 +56,7 @@ namespace WebAPI
                         IssuerSigningKey=SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
                 };
             });
+            services.AddDependencyResolvers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
