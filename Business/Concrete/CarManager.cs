@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Validaton;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
@@ -25,6 +26,7 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(CarValidator))]
+        [CacheRemoveAspect("IProductService.Get")]
         public IResult Add(Car car)
         {
         //     ValidationTool.Validate(new CarValidator(), car);
@@ -33,13 +35,18 @@ namespace Business.Concrete
      
         }
 
+        public IResult AddTransactionalTest(Car car)
+        {
+            throw new NotImplementedException();
+        }
+
         public IResult Delete(Car car)
         {
             _carDal.Delete(car);
             return new SuccessResult(Messages.CarDeleted);
             
         }
-
+        [CacheAspect]
         public IDataResult<List<Car>> GetAll()
         {
             return new  SuccessDataResult<List<Car>> (_carDal.GetAll());
@@ -55,6 +62,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Car>>( _carDal.GetAll(p => p.BrandId == id));
         }
 
+        [CacheAspect]
         public IDataResult< List<Car>> GetCarsByColorId(int id)
         {
             return new SuccessDataResult<List<Car>>( _carDal.GetAll(p => p.ColorId == id));
